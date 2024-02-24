@@ -9,6 +9,11 @@ def hello_world():
 # hello
 # zach
 
+# Downloading Packages
+import numpy as np
+import pandas as pd
+
+
 # Standardizing the set period used for portfolio optimisation
 start_date = '2006-01-15'
 end_date = '2023-10-01'
