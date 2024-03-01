@@ -1,31 +1,14 @@
 import numpy as np
 
-Freq = 52 # frequency factor (given weekly data, it is 52)
+def standard_deviation (weights, cov_matrix):
+    variance = weights.T @ cov_matrix @ weights
+    return np.sqrt(variance)
 
-# Functions for annualizing returns and standard deviation; x is a scalar input
-def ann_ret(x):
-    return (x+1)**Freq-1
-def ann_std(x):
-    return x*np.sqrt(Freq)
+def expected_returns (weights, log_returns):
+    return np.sum(log_returns.mean()*weights)*252
 
-# Function used to find the Annualized geometric mean of x [note: x is series of weekly data]
-def ann_geo_mean(x):
-    n = len(x)
-    return np.exp(np.sum(np.log(1+x)) * Freq / n) - 1
+def sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate):
+    return(expected_returns (weights, log_returns)- risk_free_rate) / standard_deviation(weights, cov_matrix)
 
-# Function used to find the Annualized Sharpe Ratio of x; x is a series of simple returns
-def ann_sr(x, rf):
-    n = len(x)
-    ret_expected = np.sum(x-rf)/n # more widely used as arithmetic mean in sharpe ratio calculation
-    ret_avg = np.sum(x)/n
-    std_dev = np.sqrt( np.sum( (x - ret_avg)**2 ) / n )
-    annu_ret_expected = (ret_expected+1)**Freq-1
-    annu_std_dev = std_dev * np.sqrt(Freq)
-    return annu_ret_expected/annu_std_dev
-
-# Function used to find the Maximum drawdown (optional)
-def mdd(x):
-    wealth = (x+1).cumprod() #x is a return vector
-    cummax = wealth.cummax() #determine cumulative maximum value
-    drawdown = wealth/cummax - 1 #calculate drawdown vector
-    return drawdown.min()
+def neg_sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate):
+    return -sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate)

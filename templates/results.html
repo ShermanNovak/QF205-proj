@@ -1,5 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
+    <h1>Results</h1>
+    {% for ticker, weight in optimal_weights %}
+        <p>{{ ticker }}: {{ weight }}</p>
+    {% endfor %}
+    <p>Expected Annual Return: {{ optimal_portfolio_return }} </p>
+    <p>Expected Volatility: {{ optimal_portfolio_volatility }} </p>
+    <p>Sharpe Ratio: {{ optimal_sharpe_ratio }} </p>
 {% endblock %}
