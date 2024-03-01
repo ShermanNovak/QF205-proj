@@ -15,7 +15,7 @@ FRED_KEY = os.getenv('FRED_KEY')
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
+def form_page():
     tickers = [
         "AAPL", "MSFT", "AMZN", "GOOGL", "FB",
         "TSLA", "NVDA", "JPM", "V", "JNJ",
@@ -55,7 +55,7 @@ def optimise_portfolio():
     optimal_portfolio_return = helpers.expected_returns(optimal_weights, log_returns)
     optimal_portfolio_volatility = helpers.standard_deviation(optimal_weights, cov_matrix)
     optimal_sharpe_ratio = helpers.sharpe_ratio(optimal_weights, log_returns, cov_matrix, risk_free_rate)
-    return render_template('results.html', optimal_weights=zip(tickers, optimal_weights), optimal_portfolio_return=optimal_portfolio_return, optimal_portfolio_volatility=optimal_portfolio_volatility, optimal_sharpe_ratio=optimal_sharpe_ratio)
+    return render_template('results.html', optimal_weights=zip(range(len(tickers)), tickers, optimal_weights), optimal_portfolio_return=optimal_portfolio_return, optimal_portfolio_volatility=optimal_portfolio_volatility, optimal_sharpe_ratio=optimal_sharpe_ratio)
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)

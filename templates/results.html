@@ -1,11 +1,57 @@
-{% extends "layout.html" %}
-
-{% block content %}
-    <h1>Results</h1>
-    {% for ticker, weight in optimal_weights %}
-        <p>{{ ticker }}: {{ weight }}</p>
-    {% endfor %}
-    <p>Expected Annual Return: {{ optimal_portfolio_return }} </p>
-    <p>Expected Volatility: {{ optimal_portfolio_volatility }} </p>
-    <p>Sharpe Ratio: {{ optimal_sharpe_ratio }} </p>
+{% extends "layout.html" %} {% block content %}
+<div class="container-fluid">
+  <h1>Results</h1>
+  <div class="row">
+    <div class="col">
+      <div
+        class="card bg-light border border-dark rounded-4 text-center px-4 py-4"
+      >
+        <h5 class="card-title">Expected Annual Return</h5>
+        <p class="card-text">{{ optimal_portfolio_return }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card bg-light border border-dark rounded-4 text-center px-4 py-4"
+      >
+        <h5 class="card-title">Expected Volatility</h5>
+        <p class="card-text">{{ optimal_portfolio_volatility }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card bg-light border border-dark rounded-4 text-center px-4 py-4"
+      >
+        <h5 class="card-title">Sharpe Ratio</h5>
+        <p class="card-text">{{ optimal_sharpe_ratio }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card bg-light border border-dark rounded-4 px-4 py-4">
+        <h4>Optimised Weights</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Ticker</th>
+              <th scope="col">Allocation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i, ticker, weight in optimal_weights %}
+            <tr>
+              <th scope="row">{{ i }}</th>
+              <td>{{ ticker }}</td>
+              <td>{{ (weight * 100)|round(2) }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <a href="{{ url_for('form_page') }}" class="btn btn-primary">Back to Home</a>
+</div>
 {% endblock %}
