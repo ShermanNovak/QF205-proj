@@ -8,6 +8,7 @@ from fredapi import Fred
 import os
 from dotenv import load_dotenv
 import helpers
+import sp500tickers
 
 load_dotenv()
 FRED_KEY = os.getenv('FRED_KEY')
@@ -16,18 +17,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def form_page():
-    tickers = [
-        "AAPL", "MSFT", "AMZN", "GOOGL", "FB",
-        "TSLA", "NVDA", "JPM", "V", "JNJ",
-        "PG", "MA", "UNH", "DIS", "HD",
-        "PYPL", "ADBE", "CMCSA", "BAC", "INTC",
-        "CRM", "VZ", "NFLX", "KO", "PEP",
-        "T", "MRK", "ABT", "CSCO", "NKE",
-        "WMT", "XOM", "BABA", "PFE", "ORCL",
-        "TMO", "ACN", "AVGO", "CVX", "NEE",
-        "ABBV", "COST", "AMGN", "WFC", "TXN",
-        "IBM", "QCOM", "LOW", "MMM", "MDT"
-    ]
+    tickers = list(sp500tickers.tickers_dict.keys())
     return render_template("index.html", tickers=tickers)
 
 @app.route("/", methods=['POST'])
