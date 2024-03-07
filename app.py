@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def form_page():
-    tickers = list(sp500tickers.tickers_dict.keys())
+    tickers = ["(\"" + i + "\") " + j for i,j in sp500tickers.tickers_dict.items()]
     return render_template("index.html", tickers=tickers)
 
 @app.route("/", methods=['POST'])
@@ -30,21 +30,36 @@ def optimise_portfolio():
 
     end_date = datetime.today()
     start_date = end_date - timedelta(days = 5 * 365)
+
+    # Getting stock prices from YFinance
     adj_close_df = yf.download(tickers, start=start_date, end=end_date)['Adj Close']
+
+    # Calculate compounding returns 
     log_returns = np.log(adj_close_df/adj_close_df.shift(1))
     log_returns = log_returns.dropna()
+
+    #Calculate covariance matrix, and annualising daily data by multiplying by 252 trading days
     cov_matrix = log_returns.cov()*252
+
+    # Getting risk-free return based on 10-year Treasury bills
     fred = Fred(api_key=FRED_KEY)
     ten_year_treasury_rate = fred.get_series_latest_release('GS10')/100
     risk_free_rate = ten_year_treasury_rate.iloc[-1]
+
+    #Priming the parameters for calculation
     constraints = {'type': 'eq', 'fun': lambda weights: np.sum(weights)-1}
     bounds = [(0,0.5) for _ in range(len(tickers))]
     initial_weights = np.array([1/len(tickers)]*len(tickers))
+
+    #Calculating optimal portfolio weights
     optimise_results = minimize(helpers.neg_sharpe_ratio, initial_weights, args=(log_returns, cov_matrix, risk_free_rate), method='SLSQP', constraints=constraints, bounds=bounds)
     optimal_weights = optimise_results.x
+
+    #Calculating performance metrics based on optimal weights using helpers.py functions
     optimal_portfolio_return = helpers.expected_returns(optimal_weights, log_returns)
     optimal_portfolio_volatility = helpers.standard_deviation(optimal_weights, cov_matrix)
     optimal_sharpe_ratio = helpers.sharpe_ratio(optimal_weights, log_returns, cov_matrix, risk_free_rate)
+
     return render_template('results.html', optimal_weights=zip(range(len(tickers)), tickers, optimal_weights), optimal_portfolio_return=optimal_portfolio_return, optimal_portfolio_volatility=optimal_portfolio_volatility, optimal_sharpe_ratio=optimal_sharpe_ratio)
 
 if __name__ == "__main__":

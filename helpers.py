@@ -12,3 +12,27 @@ def sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate):
 
 def neg_sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate):
     return -sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate)
+
+def last_month_return():
+    return
+
+def rolling_3month_return():
+    return
+
+def ytd_return():
+    return
+
+def annualised_return():
+    return
+
+def annualised_volatility():
+    return
+
+def realised_sharpe():
+    return
+
+def total_return():
+    return
+
+def worst_monthly_dd():
+    return
