@@ -1,23 +1,89 @@
 {% extends "layout.html" %} {% block content %}
-<div class="container-fluid">
+<div class="container-fluid" style="background-color: #F6F6F6; padding:50px;height: 100%; ">
   <h1>Portfolio Optimisation</h1>
-  <form action="/" method="post">
-    {% for i in range(1, 11) %}
-    <div class="row align-items-center">
-      <div class="col-auto">
-        <label>Ticker {{i}}</label>
-      </div>
-      <div class="col-auto">
-        <select name="ticker[]" class="form-select">
-          <option value=""></option>
-          {% for ticker in tickers %}
-          <option value="{{ ticker }}">{{ ticker }}</option>
+  <div style="display: flex;flex-direction: row; justify-content: center;">
+    <div>
+      <p>Select tickers</p>
+      <div style="border-radius: 40px;background-color: white;padding: 30px;width: fit-content">
+        <form action="/" method="post">
+          {% for i in range(1, 11) %}
+          <div class="row align-items-center" style="padding: 5px">
+            <div class="col-auto">
+              <label>Ticker {{i}}</label>
+            </div>
+            <div class="col-auto">
+              <select name="ticker[]" class="form-select" style="width: 200px;">
+                <option value=""></option>
+                {% for ticker in tickers %}
+                <option value="{{ ticker }}">{{ ticker }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
           {% endfor %}
-        </select>
+          <button class="btn btn-primary" type="submit">Optimise Portfolio</button>
+          {% if error %}
+          <p class=error style="color: red;"><strong>Error:</strong> {{ error }}
+            {% endif %}
+        </form>
       </div>
     </div>
-    {% endfor %}
-    <button class="btn btn-primary" type="submit">Optimise Portfolio</button>
-  </form>
+    <div style="margin-left: 30px;">
+      <p>Results</p>
+      <div style="border-radius: 40px;background-color: white;padding: 30px;width: fit-content;;">
+        <div class="row">
+          <div class="col">
+            <div
+              class="card bg-light rounded-4 text-center px-4 py-4"
+            >
+              <h5 class="card-title">Expected Annual Return</h5>
+              <p class="card-text">{{ optimal_portfolio_return }}</p>
+            </div>
+          </div>
+          <div class="col">
+            <div
+              class="card bg-light rounded-4 text-center px-4 py-4"
+            >
+              <h5 class="card-title">Expected Volatility</h5>
+              <p class="card-text">{{ optimal_portfolio_volatility }}</p>
+            </div>
+          </div>
+          <div class="col">
+            <div
+              class="card bg-light rounded-4 text-center px-4 py-4"
+            >
+              <h5 class="card-title">Sharpe Ratio</h5>
+              <p class="card-text">{{ optimal_sharpe_ratio }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+            <div class="card bg-light rounded-4 px-4 py-4">
+              <h4>Optimised Weights</h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ticker</th>
+                    <th scope="col">Allocation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i, ticker, weight in optimal_weights %}
+                  <tr>
+                    <th scope="row">{{ i }}</th>
+                    <td>{{ ticker }}</td>
+                    <td>{{ (weight * 100)|round(2) }}%</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
