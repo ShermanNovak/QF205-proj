@@ -1,18 +1,18 @@
 {% extends "layout.html" %} {% block content %}
-<div class="container-fluid" style="background-color: #F6F6F6; padding:50px;height: 100%; ">
+<div class="container-fluid" style="background-color: #F6F6F6; padding:50px;height: 100%; width: 100%">
   <h1>Portfolio Optimisation</h1>
   <div style="display: flex;flex-direction: row; justify-content: center;">
     <div>
-      <p>Select tickers</p>
+      <h3>Select tickers</h3>
       <div style="border-radius: 40px;background-color: white;padding: 30px;width: fit-content">
         <form action="/" method="post">
-          {% for i in range(1, 11) %}
-          <div class="row align-items-center" style="padding: 5px">
+          {% for i in range(1, 6) %}
+          <div class="row" style="padding: 5px; display: flex; justify-content: space-between ;">
             <div class="col-auto">
               <label>Ticker {{i}}</label>
             </div>
             <div class="col-auto">
-              <select name="ticker[]" class="form-select" style="width: 200px;">
+              <select name="ticker[]" class="form-select" style="width: 230px;">
                 <option value=""></option>
                 {% for ticker in tickers %}
                 <option value="{{ ticker }}">{{ ticker }}</option>
@@ -21,7 +21,7 @@
             </div>
           </div>
           {% endfor %}
-          <button class="btn btn-primary" type="submit">Optimise Portfolio</button>
+          <button class="btn btn-primary" type="submit" style="margin: 10px 0px;">Optimise Portfolio</button>
           {% if error %}
           <p class=error style="color: red;"><strong>Error:</strong> {{ error }}
             {% endif %}
@@ -29,37 +29,27 @@
       </div>
     </div>
     <div style="margin-left: 30px;">
-      <p>Results</p>
-      <div style="border-radius: 40px;background-color: white;padding: 30px;width: fit-content;;">
-        <div class="row">
-          <div class="col">
-            <div
-              class="card bg-light rounded-4 text-center px-4 py-4"
-            >
-              <h5 class="card-title">Expected Annual Return</h5>
-              <p class="card-text">{{ optimal_portfolio_return }}</p>
-            </div>
+      <h3>Results</h3>
+      <div style="border-radius: 40px;background-color: white;padding: 30px; width: 900px;">
+          <p class="card-title" style="font-weight: 700;">Expected Annual Return</p>
+          <div class="bg-light rounded-2 p-1" style="width: 250px; height: 35px">
+            <p class="card-text">{{ optimal_portfolio_return }}</p>
           </div>
-          <div class="col">
-            <div
-              class="card bg-light rounded-4 text-center px-4 py-4"
-            >
-              <h5 class="card-title">Expected Volatility</h5>
-              <p class="card-text">{{ optimal_portfolio_volatility }}</p>
-            </div>
+
+          <p class="card-title" style="font-weight: 700;">Expected Volatility</p>
+          <div class="bg-light rounded-2 p-1"  style="width: 250px; height: 35px">
+            <p class="card-text">{{ optimal_portfolio_volatility }}</p>
           </div>
-          <div class="col">
-            <div
-              class="card bg-light rounded-4 text-center px-4 py-4"
-            >
-              <h5 class="card-title">Sharpe Ratio</h5>
-              <p class="card-text">{{ optimal_sharpe_ratio }}</p>
-            </div>
+
+          <p class="card-title" style="font-weight: 700;">Sharpe Ratio</p>
+          <div class="bg-light rounded-2 p-1"  style="width: 250px; height: 35px">
+            <p class="card-text">{{ optimal_sharpe_ratio }}</p>
           </div>
-        </div>
+
+      
         <div class="row mt-4">
           <div class="col">
-            <div class="card bg-light rounded-4 px-4 py-4">
+            <div class="bg-light rounded-2 px-4 py-4">
               <h4>Optimised Weights</h4>
               <table class="table">
                 <thead>
