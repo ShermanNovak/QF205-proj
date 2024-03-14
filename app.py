@@ -24,16 +24,17 @@ def form_page():
 @app.route("/", methods=['POST'])
 def optimise_portfolio():
     selected_tickers = request.form.getlist('ticker[]')
-    tickers = [re.findall('"([^"]*)"', s)[0] for s in selected_tickers if s != '']
-
-    if len(tickers) < 2:
-        return 'At least 2 tickers need to be selected'    
+    selected_tickers = [re.findall('"([^"]*)"', s)[0] for s in selected_tickers if s != '']
+    tickers = ["(\"" + i + "\") " + j for i,j in sp500tickers.tickers_dict.items()]
+    if len(selected_tickers) < 2:
+        error = 'At least 2 tickers need to be selected'
+        return render_template('index.html', error=error, tickers=tickers)  
 
     end_date = datetime.today()
     start_date = end_date - timedelta(days = 5 * 365)
 
     # Getting stock prices from YFinance
-    adj_close_df = yf.download(tickers, start=start_date, end=end_date, ignore_tz=True)['Adj Close']
+    adj_close_df = yf.download(selected_tickers, start=start_date, end=end_date, ignore_tz=True)['Adj Close']
 
     # Calculate compounding returns 
     log_returns = np.log(adj_close_df/adj_close_df.shift(1))
@@ -51,8 +52,8 @@ def optimise_portfolio():
 
     #Priming the parameters for calculation
     constraints = {'type': 'eq', 'fun': lambda weights: np.sum(weights)-1}
-    bounds = [(0,0.5) for _ in range(len(tickers))]
-    initial_weights = np.array([1/len(tickers)]*len(tickers))
+    bounds = [(0,0.5) for _ in range(len(selected_tickers))]
+    initial_weights = np.array([1/len(selected_tickers)]*len(selected_tickers))
 
     #Calculating optimal portfolio weights
     optimise_results = minimize(helpers.neg_sharpe_ratio, initial_weights, args=(log_returns, cov_matrix, risk_free_rate), method='SLSQP', constraints=constraints, bounds=bounds)
@@ -63,7 +64,7 @@ def optimise_portfolio():
     optimal_portfolio_volatility = helpers.standard_deviation(optimal_weights, cov_matrix)
     optimal_sharpe_ratio = helpers.sharpe_ratio(optimal_weights, log_returns, cov_matrix, risk_free_rate)
 
-    return render_template('results.html', optimal_weights=zip(range(len(tickers)), tickers, optimal_weights), optimal_portfolio_return=optimal_portfolio_return, optimal_portfolio_volatility=optimal_portfolio_volatility, optimal_sharpe_ratio=optimal_sharpe_ratio)
+    return render_template('index.html', optimal_weights=zip(range(len(selected_tickers)), selected_tickers, optimal_weights), optimal_portfolio_return=optimal_portfolio_return, optimal_portfolio_volatility=optimal_portfolio_volatility, optimal_sharpe_ratio=optimal_sharpe_ratio, tickers=tickers)
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
