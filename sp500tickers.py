@@ -1,150 +1,505 @@
-tickers_dict = {'A': 'Agilent Technologies Inc', 'AA': 'Alcoa Inc', 'AAPL': 'Apple Inc.', \
-           'ABC': 'AmerisourceBergen Corp', 'ABT': 'Abbott Laboratories', 'ACE': 'ACE Limited', \
-            'ACN': 'Accenture', 'ADBE': 'Adobe Systems Inc', 'ADI': 'Analog Devices Inc', \
-            'ADM': 'Archer-Daniels-Midland Co', 'ADP': 'Automatic Data Processing', \
-            'ADSK': 'Autodesk Inc', 'AEE': 'Ameren Corp', 'AEP': 'American Electric Power', \
-            'AES': 'AES Corp', 'AET': 'Aetna Inc', 'AFL': 'AFLAC Inc', 'AGN': 'Allergan Inc', \
-            'AIG': 'American Intl Group Inc', 'AIV': 'Apartment Investment & Mgmt', \
-            'AIZ': 'Assurant Inc', 'AKAM': 'Akamai Technologies Inc', 'ALL': 'Allstate Corp', 'ALTR': 'Altera Corp', 'ALXN': 'Alexion Pharmaceuticals', 'AMAT': 'Applied Materials Inc', 'AMD': 'Advanced Micro Devices', 'AMGN': 'Amgen Inc', 'AMP': 'Ameriprise Financial', 'AMT': 'American Tower Corp A', 'AMZN': 'Amazon.com Inc', 'AN': 'AutoNation Inc', 'ANF': 'Abercrombie & Fitch Company A', 'ANR': 'Alpha Natural Resources', 'AON': 'Aon plc', 'APA': 'Apache Corporation', 'APC': 'Anadarko Petroleum Corp', 'APD': 'Air Products & Chemicals Inc', 'APH': 'Amphenol Corp A', 'APOL': 'Apollo Group Inc', 'ARG': 'Airgas Inc', 'ATI': 'Allegheny Technologies Inc', 'AVB': 'AvalonBay Communities, Inc.', 'AVP': 'Avon Products', 'AVY': 'Avery Dennison Corp', 'AXP': 'American Express Co', 'AZO': 'AutoZone Inc', 'BA': 'Boeing Company', 'BAC': 'Bank of America Corp', 'BAX': 
-            'Baxter International Inc.', 'BBBY': 'Bed Bath & Beyond', 'BBT': 'BB&T Corporation', \
-            'BBY': 'Best Buy Co. Inc.', 'BCR': 'Bard (C.R.) Inc.', 'BDX': 'Becton Dickinson', 'BEAM': 'Beam Inc.', \
-            'BEN': 'Franklin Resources', 'BF.B': 'Brown-Forman Corporation', 'BHI': 'Baker Hughes Inc', \
-            'BIG': 'Big Lots Inc.', 'BIIB': 'BIOGEN IDEC Inc.', 'BK': 'The Bank of New York Mellon Corp.', \
-            'BLK': 'BlackRock', 'BLL': 'Ball Corp', 'BMC': 'BMC Software', 'BMS': 'Bemis Company', \
-            'BMY': 'Bristol-Myers Squibb', 'BRCM': 'Broadcom Corporation', 'BRK.B': 'Berkshire Hathaway', \
-            'BSX': 'Boston Scientific', 'BTU': 'Peabody Energy', 'BWA': 'BorgWarner', \
-            'BXP': 'Boston Properties', 'C': 'Citigroup Inc.', 'CA': 'CA, Inc.', 'CAG': 'ConAgra Foods Inc.', \
-            'CAH': 'Cardinal Health Inc.', 'CAM': 'Cameron International Corp.', 'CAT': 'Caterpillar Inc.', \
-            'CB': 'Chubb Corp.', 'CBE': 'Cooper Industries', 'CBG': 'CBRE Group', 'CBS': 'CBS Corp.', \
-            'CCE': 'Coca-Cola Enterprises', 'CCI': 'Crown Castle International Corp.', 'CCL': 'Carnival Corp.', \
-            'CELG': 'Celgene Corp.', 'CERN': 'Cerner', 'CF': 'CF Industries Holdings Inc', 'CFN': 'Carefusion', \
-            'CHK': 'Chesapeake Energy', 'CHRW': 'C. H. Robinson Worldwide', 'CI': 'CIGNA Corp.', \
-            'CINF': 'Cincinnati Financial', 'CL': 'Colgate-Palmolive', 'CLF': 'Cliffs Natural Resources', \
-            'CLX': 'Clorox Co.', 'CMA': 'Comerica Inc.', 'CMCSA': 'Comcast Corp.', 'CME': 'CME Group Inc.', \
-            'CMG': 'Chipotle Mexican Grill', 'CMI': 'Cummins Inc.', 'CMS': 'CMS Energy', 'CNP': 'CenterPoint Energy', \
-            'CNX': 'CONSOL Energy Inc.', 'COF': 'Capital One Financial', 'COG': 'Cabot Oil & Gas', \
-            'COH': 'Coach Inc.', 'COL': 'Rockwell Collins', 'COP': 'ConocoPhillips', 'COST': 'Costco Co.', \
-            'COV': 'Covidien plc', 'CPB': 'Campbell Soup', 'CRM': 'Salesforce.com', \
-            'CSC': 'Computer Sciences Corp.', 'CSCO': 'Cisco Systems', 'CSX': 'CSX Corp.', \
-            'CTAS': 'Cintas Corporation', 'CTL': 'CenturyLink Inc', 'CTSH': 'Cognizant Technology Solutions', \
-            'CTXS': 'Citrix Systems', 'CVC': 'Cablevision Systems Corp.', 'CVH': 'Coventry Health Care Inc.', \
-            'CVS': 'CVS Caremark Corp.', 'CVX': 'Chevron Corp.', 'D': 'Dominion Resources', \
-            'DD': 'Du Pont (E.I.)', 'DE': 'Deere & Co.', 'DELL': 'Dell Inc.', 'DF': 'Dean Foods', \
-            'DFS': 'Discover Financial Services', 'DGX': 'Quest Diagnostics', 'DHI': 'D. R. Horton', \
-            'DHR': 'Danaher Corp.', 'DIS': 'Walt Disney Co.', 'DISCA': 'Discovery Communications', \
-            'DLTR': 'Dollar Tree', 'DNB': 'Dun & Bradstreet', 'DNR': 'Denbury Resources Inc.', \
-            'DO': 'Diamond Offshore Drilling', 'DOV': 'Dover Corp.', 'DOW': 'Dow Chemical', \
-            'DPS': 'Dr Pepper Snapple Group', 'DRI': 'Darden Restaurants', 'DTE': 'DTE Energy Co.', \
-            'DTV': 'DirecTV', 'DUK': 'Duke Energy', 'DV': 'DeVry, Inc.', 'DVA': 'DaVita Inc.', \
-            'DVN': 'Devon Energy Corp.', 'EA': 'Electronic Arts', 'EBAY': 'eBay Inc.', 'ECL': 'Ecolab Inc.', \
-            'ED': 'Consolidated Edison', 'EFX': 'Equifax Inc.', 'EIX': "Edison Int'l", \
-            'EL': 'Estee Lauder Cos.', 'EMC': 'EMC Corp.', 'EMN': 'Eastman Chemical', \
-            'EMR': 'Emerson Electric', 'EOG': 'EOG Resources', 'EQR': 'Equity Residential', \
-            'EQT': 'EQT Corporation', 'ESRX': 'Express Scripts', 'ESV': 'Ensco plc', 'ETFC': 'E-Trade', \
-            'ETN': 'Eaton Corp.', 'ETR': 'Entergy Corp.', 'EW': 'Edwards Lifesciences', \
-            'EXC': 'Exelon Corp.', 'EXPD': "Expeditors Int'l", 'EXPE': 'Expedia Inc.', \
-            'F': 'Ford Motor', 'FAST': 'Fastenal Co', 'FCX': 'Freeport-McMoran Cp & Gld', \
-            'FDO': 'Family Dollar Stores', 'FDX': 'FedEx Corporation', 'FE': 'FirstEnergy Corp', \
-            'FFIV': 'F5 Networks', 'FHN': 'First Horizon National', 'FII': 'Federated Investors Inc.', \
-            'FIS': 'Fidelity National Information Services', 'FISV': 'Fiserv Inc', \
-            'FITB': 'Fifth Third Bancorp', 'FLIR': 'FLIR Systems', 'FLR': 'Fluor Corp.', \
-            'FLS': 'Flowserve Corporation', 'FMC': 'FMC Corporation', 'FOSL': 'Fossil, Inc.', \
-            'FRX': 'Forest Laboratories', 'FSLR': 'First Solar Inc', 'FTI': 'FMC Technologies Inc.', \
-            'FTR': 'Frontier Communications', 'GAS': 'AGL Resources Inc.', 'GCI': 'Gannett Co.', \
-            'GD': 'General Dynamics', 'GE': 'General Electric', 'GILD': 'Gilead Sciences', \
-            'GIS': 'General Mills', 'GLW': 'Corning Inc.', 'GME': 'GameStop Corp.', \
-            'GNW': 'Genworth Financial Inc.', 'GOOG': 'Google Inc.', 'GPC': 'Genuine Parts', \
-            'GPS': 'Gap (The)', 'GS': 'Goldman Sachs Group', 'GT': 'Goodyear Tire & Rubber', \
-            'GWW': 'Grainger (W.W.) Inc.', 'HAL': 'Halliburton Co.', 'HAR': "Harman Int'l Industries", \
-            'HAS': 'Hasbro Inc.', 'HBAN': 'Huntington Bancshares', 'HCBK': 'Hudson City Bancorp', \
-            'HCN': 'Health Care REIT', 'HCP': 'HCP Inc.', 'HD': 'Home Depot', 'HES': 'Hess Corporation', \
-            'HIG': 'Hartford Financial Svc.Gp.', 'HNZ': 'Heinz (H.J.)', 'HOG': 'Harley-Davidson', \
-            'HON': "Honeywell Int'l Inc.", 'HOT': 'Starwood Hotels & Resorts', 'HP': 'Helmerich & Payne', \
-            'HPQ': 'Hewlett-Packard', 'HRB': 'Block H&R', 'HRL': 'Hormel Foods Corp.', \
-            'HRS': 'Harris Corporation', 'HSP': 'Hospira Inc.', 'HST': 'Host Hotels & Resorts', \
-            'HSY': 'The Hershey Company', 'HUM': 'Humana Inc.', 'IBM': 'International Bus. Machines', \
-            'ICE': 'IntercontinentalExchange Inc.', 'IFF': 'International Flav/Frag', \
-            'IGT': 'International Game Technology', 'INTC': 'Intel Corp.', 'INTU': 'Intuit Inc.', \
-            'IP': 'International Paper', 'IPG': 'Interpublic Group', 'IR': 'Ingersoll-Rand PLC', \
-            'IRM': 'Iron Mountain Incorporated', 'ISRG': 'Intuitive Surgical Inc.', \
-            'ITW': 'Illinois Tool Works', 'IVZ': 'Invesco Ltd.', 'JBL': 'Jabil Circuit', \
-            'JCI': 'Johnson Controls', 'JCP': 'Penney (J.C.)', 'JDSU': 'JDS Uniphase Corp.', \
-            'JEC': 'Jacobs Engineering Group', 'JNJ': 'Johnson & Johnson', 'JNPR': 'Juniper Networks', \
-            'JOY': 'Joy Global Inc.', 'JPM': 'JPMorgan Chase & Co.', 'JWN': 'Nordstrom', 'K': 'Kellogg Co.', \
-            'KEY': 'KeyCorp', 'KFT': 'Kraft Foods Inc-A', 'KIM': 'Kimco Realty', 'KLAC': 'KLA-Tencor Corp.', \
-            'KMB': 'Kimberly-Clark', 'KMI': 'Kinder Morgan', 'KMX': 'Carmax Inc', 'KO': 'Coca Cola Co.', \
-            'KR': 'Kroger Co.', 'KSS': "Kohl's Corp.", 'L': 'Loews Corp.', 'LEG': 'Leggett & Platt', \
-            'LEN': 'Lennar Corp.', 'LH': 'Laboratory Corp. of America Holding', 'LIFE': 'Life Technologies', \
-            'LLL': 'L-3 Communications Holdings', 'LLTC': 'Linear Technology Corp.', \
-            'LLY': 'Lilly (Eli) & Co.', 'LM': 'Legg Mason', 'LMT': 'Lockheed Martin Corp.', \
-            'LNC': 'Lincoln National', 'LO': 'Lorillard Inc.', 'LOW': "Lowe's Cos.", 'LRCX': 'Lam Research', \
-            'LSI': 'LSI Corporation', 'LTD': 'Limited Brands Inc.', 'LUK': 'Leucadia National Corp.', \
-            'LUV': 'Southwest Airlines', 'LXK': "Lexmark Int'l Inc", 'M': "Macy's Inc.", \
-            'MA': 'Mastercard Inc.', 'MAR': "Marriott Int'l.", 'MAS': 'Masco Corp.', 'MAT': 'Mattel Inc.', \
-            'MCD': "McDonald's Corp.", 'MCHP': 'Microchip Technology', 'MCK': 'McKesson Corp.', \
-            'MCO': "Moody's Corp", 'MDT': 'Medtronic Inc.', 'MET': 'MetLife Inc.', 'MHP': 'McGraw-Hill', \
-            'MJN': 'Mead Johnson', 'MKC': 'McCormick & Co.', 'MMC': 'Marsh & McLennan', 'MMM': '3M Co.', \
-            'MNST': 'Monster Beverage', 'MO': 'Altria Group Inc', 'MOLX': 'Molex Inc.', 'MON': 'Monsanto Co.', \
-            'MOS': 'The Mosaic Company', 'MPC': 'Marathon Petroleum', 'MRK': 'Merck & Co.', \
-            'MRO': 'Marathon Oil Corp.', 'MS': 'Morgan Stanley', 'MSFT': 'Microsoft Corp.', \
-            'MSI': 'Motorola Solutions Inc.', 'MTB': 'M&T Bank Corp.', 'MU': 'Micron Technology', \
-            'MUR': 'Murphy Oil', 'MWV': 'MeadWestvaco Corporation', 'MYL': 'Mylan Inc.', \
-            'NBL': 'Noble Energy Inc', 'NBR': 'Nabors Industries Ltd.', 'NDAQ': 'NASDAQ OMX Group', \
-            'NE': 'Noble Corp', 'NEE': 'NextEra Energy Resources', 'NEM': 'Newmont Mining Corp. (Hldg. Co.)', \
-            'NFLX': 'NetFlix Inc.', 'NFX': 'Newfield Exploration Co', 'NI': 'NiSource Inc.', \
-            'NKE': 'NIKE Inc.', 'NOC': 'Northrop Grumman Corp.', 'NOV': 'National Oilwell Varco Inc.', \
-            'NRG': 'NRG Energy', 'NSC': 'Norfolk Southern Corp.', 'NTAP': 'NetApp', \
-            'NTRS': 'Northern Trust Corp.', 'NU': 'Northeast Utilities', 'NUE': 'Nucor Corp.', \
-            'NVDA': 'Nvidia Corporation', 'NWL': 'Newell Rubbermaid Co.', 'NWSA': 'News Corporation', \
-            'NYX': 'NYSE Euronext', 'OI': 'Owens-Illinois Inc', 'OKE': 'ONEOK', 'OMC': 'Omnicom Group', \
-            'ORCL': 'Oracle Corp.', 'ORLY': "O'Reilly Automotive", 'OXY': 'Occidental Petroleum', \
-            'PAYX': 'Paychex Inc.', 'PBCT': "People's United Bank", 'PBI': 'Pitney-Bowes', \
-            'PCAR': 'PACCAR Inc.', 'PCG': 'PG&E Corp.', 'PCL': 'Plum Creek Timber Co.', \
-            'PCLN': 'Priceline.com Inc', 'PCP': 'Precision Castparts', 'PCS': 'MetroPCS Communications Inc.', \
-            'PDCO': 'Patterson Companies', 'PEG': 'Public Serv. Enterprise Inc.', 'PEP': 'PepsiCo Inc.', \
-            'PFE': 'Pfizer Inc.', 'PFG': 'Principal Financial Group', 'PG': 'Procter & Gamble', \
-            'PGR': 'Progressive Corp.', 'PH': 'Parker-Hannifin', 'PHM': 'Pulte Homes Inc.', \
-            'PKI': 'PerkinElmer', 'PLD': 'ProLogis', 'PLL': 'Pall Corp.', 'PM': 'Philip Morris International', \
-            'PNC': 'PNC Financial Services', 'PNW': 'Pinnacle West Capital', 'POM': 'Pepco Holdings Inc.', \
-            'PPG': 'PPG Industries', 'PPL': 'PPL Corp.', 'PRGO': 'Perrigo', 'PRU': 'Prudential Financial', \
-            'PSA': 'Public Storage', 'PSX': 'Phillips 66', 'PWR': 'Quanta Services Inc.', 'PX': 'Praxair Inc.', \
-            'PXD': 'Pioneer Natural Resources', 'QCOM': 'QUALCOMM Inc.', 'QEP': 'QEP Resources', \
-            'R': 'Ryder System', 'RAI': 'Reynolds American Inc.', 'RDC': 'Rowan Cos.', \
-            'RF': 'Regions Financial Corp.', 'RHI': 'Robert Half International', 'RHT': 'Red Hat Inc.', \
-            'RL': 'Polo Ralph Lauren Corp.', 'ROK': 'Rockwell Automation Inc.', 'ROP': 'Roper Industries', \
-            'ROST': 'Ross Stores Inc.', 'RRC': 'Range Resources Corp.', 'RRD': 'Donnelley (R.R.) & Sons', \
-            'RSG': 'Republic Services Inc', 'RTN': 'Raytheon Co.', 'S': 'Sprint Nextel Corp.', 'SAI': 'SAIC', \
-            'SBUX': 'Starbucks Corp.', 'SCG': 'SCANA Corp', 'SCHW': 'Charles Schwab', \
-            'SE': 'Spectra Energy Corp.', 'SEE': 'Sealed Air Corp.(New)', 'SHLD': 'Sears Holdings Corporation', \
-            'SHW': 'Sherwin-Williams', 'SIAL': 'Sigma-Aldrich', 'SJM': 'Smucker (J.M.)', \
-            'SLB': 'Schlumberger Ltd.', 'SLM': 'SLM Corporation', 'SNA': 'Snap-On Inc.', \
-            'SNDK': 'SanDisk Corporation', 'SNI': 'Scripps Networks Interactive Inc.', 'SO': 'Southern Co.', \
-            'SPG': 'Simon Property Group Inc', 'SPLS': 'Staples Inc.', 'SRCL': 'Stericycle Inc', \
-            'SRE': 'Sempra Energy', 'STI': 'SunTrust Banks', 'STJ': 'St Jude Medical', \
-            'STT': 'State Street Corp.', 'STX': 'Seagate Technology', 'STZ': 'Constellation Brands', \
-            'SUN': 'Sunoco Inc.', 'SWK': 'Stanley Black & Decker', 'SWN': 'Southwestern Energy', \
-            'SWY': 'Safeway Inc.', 'SYK': 'Stryker Corp.', 'SYMC': 'Symantec Corp.', 'SYY': 'Sysco Corp.', \
-            'T': 'AT&T Inc', 'TAP': 'Molson Coors Brewing Company', 'TDC': 'Teradata Corp.', \
-            'TE': 'TECO Energy', 'TEG': 'Integrys Energy Group Inc.', 'TEL': 'TE Connectivity Ltd.', \
-            'TER': 'Teradyne Inc.', 'TGT': 'Target Corp.', 'THC': 'Tenet Healthcare Corp.', \
-            'TIE': 'Titanium Metals Corp', 'TIF': 'Tiffany & Co.', 'TJX': 'TJX Companies Inc.', \
-            'TMK': 'Torchmark Corp.', 'TMO': 'Thermo Fisher Scientific', 'TRIP': 'TripAdvisor', \
-            'TROW': 'T. Rowe Price Group', 'TRV': 'The Travelers Companies Inc.', 'TSN': 'Tyson Foods', \
-            'TSO': 'Tesoro Petroleum Co.', 'TSS': 'Total System Services', 'TWC': 'Time Warner Cable Inc.', \
-            'TWX': 'Time Warner Inc.', 'TXN': 'Texas Instruments', 'TXT': 'Textron Inc.', \
-            'TYC': 'Tyco International', 'UNH': 'United Health Group Inc.', 'UNM': 'Unum Group', \
-            'UNP': 'Union Pacific', 'UPS': 'United Parcel Service', 'URBN': 'Urban Outfitters', \
-            'USB': 'U.S. Bancorp', 'UTX': 'United Technologies', 'V': 'Visa Inc.', \
-            'VAR': 'Varian Medical Systems', 'VFC': 'V.F. Corp.', 'VIAB': 'Viacom Inc.', \
-            'VLO': 'Valero Energy', 'VMC': 'Vulcan Materials', 'VNO': 'Vornado Realty Trust', \
-            'VRSN': 'Verisign Inc.', 'VTR': 'Ventas Inc', 'VZ': 'Verizon Communications', \
-            'WAG': 'Walgreen Co.', 'WAT': 'Waters Corporation', 'WDC': 'Western Digital', \
-            'WEC': 'Wisconsin Energy Corporation', 'WFC': 'Wells Fargo', 'WFM': 'Whole Foods Market', \
-            'WHR': 'Whirlpool Corp.', 'WIN': 'Windstream Corporation', 'WLP': 'WellPoint Inc.', \
-            'WM': 'Waste Management Inc.', 'WMB': 'Williams Cos.', 'WMT': 'Wal-Mart Stores', \
-            'WPI': 'Watson Pharmaceuticals', 'WPO': 'Washington Post Co B', 'WPX': 'WPX Energy, Inc.', \
-            'WU': 'Western Union Co', 'WY': 'Weyerhaeuser Corp.', 'WYN': 'Wyndham Worldwide', \
-            'WYNN': 'Wynn Resorts Ltd', 'X': 'United States Steel Corp.', 'XEL': 'Xcel Energy Inc', \
-            'XL': 'XL Capital', 'XLNX': 'Xilinx Inc', 'XOM': 'Exxon Mobil Corp.', \
-            'XRAY': 'Dentsply International', 'XRX': 'Xerox Corp.', 'XYL': 'Xylem Inc.', 'YHOO': 'Yahoo Inc.', \
-            'YUM': 'Yum! Brands Inc', 'ZION': 'Zions Bancorp', 'ZMH': 'Zimmer Holdings'}
+{
+  "A": "Agilent Technologies, Inc.",
+  "AAL": "American Airlines Group Inc.",
+  "AAPL": "Apple Inc.",
+  "ABBV": "AbbVie Inc.",
+  "ABNB": "Airbnb, Inc.",
+  "ABT": "Abbott Laboratories",
+  "ACGL": "Arch Capital Group Ltd.",
+  "ACN": "Accenture plc",
+  "ADBE": "Adobe Inc.",
+  "ADI": "Analog Devices, Inc.",
+  "ADM": "Archer-Daniels-Midland Company",
+  "ADP": "Automatic Data Processing, Inc.",
+  "ADSK": "Autodesk, Inc.",
+  "AEE": "Ameren Corporation",
+  "AEP": "American Electric Power Company, Inc.",
+  "AES": "The AES Corporation",
+  "AFL": "Aflac Incorporated",
+  "AIG": "American International Group, Inc.",
+  "AIZ": "Assurant, Inc.",
+  "AJG": "Arthur J. Gallagher & Co.",
+  "AKAM": "Akamai Technologies, Inc.",
+  "ALB": "Albemarle Corporation",
+  "ALGN": "Align Technology, Inc.",
+  "ALL": "The Allstate Corporation",
+  "ALLE": "Allegion plc",
+  "AMAT": "Applied Materials, Inc.",
+  "AMCR": "Amcor plc",
+  "AMD": "Advanced Micro Devices, Inc.",
+  "AME": "AMETEK, Inc.",
+  "AMGN": "Amgen Inc.",
+  "AMP": "Ameriprise Financial, Inc.",
+  "AMT": "American Tower Corporation",
+  "AMZN": "Amazon.com, Inc.",
+  "ANET": "Arista Networks, Inc.",
+  "ANSS": "ANSYS, Inc.",
+  "AON": "Aon plc",
+  "AOS": "A. O. Smith Corporation",
+  "APA": "APA Corporation",
+  "APD": "Air Products and Chemicals, Inc.",
+  "APH": "Amphenol Corporation",
+  "APTV": "Aptiv PLC",
+  "ARE": "Alexandria Real Estate Equities, Inc.",
+  "ATO": "Atmos Energy Corporation",
+  "AVB": "AvalonBay Communities, Inc.",
+  "AVGO": "Broadcom Inc.",
+  "AVY": "Avery Dennison Corporation",
+  "AWK": "American Water Works Company, Inc.",
+  "AXON": "Axon Enterprise, Inc.",
+  "AXP": "American Express Company",
+  "AZO": "AutoZone, Inc.",
+  "BA": "The Boeing Company",
+  "BAC": "Bank of America Corporation",
+  "BALL": "Ball Corporation",
+  "BAX": "Baxter International Inc.",
+  "BBWI": "Bath & Body Works, Inc.",
+  "BBY": "Best Buy Co., Inc.",
+  "BDX": "Becton, Dickinson and Company",
+  "BEN": "Franklin Resources, Inc.",
+  "BF-B": "Brown-Forman Corporation",
+  "BG": "Bunge Global SA",
+  "BIIB": "Biogen Inc.",
+  "BIO": "Bio-Rad Laboratories, Inc.",
+  "BK": "The Bank of New York Mellon Corporation",
+  "BKNG": "Booking Holdings Inc.",
+  "BKR": "Baker Hughes Company",
+  "BLDR": "Builders FirstSource, Inc.",
+  "BLK": "BlackRock, Inc.",
+  "BMY": "Bristol-Myers Squibb Company",
+  "BR": "Broadridge Financial Solutions, Inc.",
+  "BRK-B": "Berkshire Hathaway Inc.",
+  "BRO": "Brown & Brown, Inc.",
+  "BSX": "Boston Scientific Corporation",
+  "BWA": "BorgWarner Inc.",
+  "BX": "Blackstone Inc.",
+  "BXP": "Boston Properties, Inc.",
+  "C": "Citigroup Inc.",
+  "CAG": "Conagra Brands, Inc.",
+  "CAH": "Cardinal Health, Inc.",
+  "CARR": "Carrier Global Corporation",
+  "CAT": "Caterpillar Inc.",
+  "CB": "Chubb Limited",
+  "CBOE": "Cboe Global Markets, Inc.",
+  "CBRE": "CBRE Group, Inc.",
+  "CCI": "Crown Castle Inc.",
+  "CCL": "Carnival Corporation & plc",
+  "CDNS": "Cadence Design Systems, Inc.",
+  "CDW": "CDW Corporation",
+  "CE": "Celanese Corporation",
+  "CEG": "Constellation Energy Corporation",
+  "CF": "CF Industries Holdings, Inc.",
+  "CFG": "Citizens Financial Group, Inc.",
+  "CHD": "Church & Dwight Co., Inc.",
+  "CHRW": "C.H. Robinson Worldwide, Inc.",
+  "CHTR": "Charter Communications, Inc.",
+  "CI": "The Cigna Group",
+  "CINF": "Cincinnati Financial Corporation",
+  "CL": "Colgate-Palmolive Company",
+  "CLX": "The Clorox Company",
+  "CMA": "Comerica Incorporated",
+  "CMCSA": "Comcast Corporation",
+  "CME": "CME Group Inc.",
+  "CMG": "Chipotle Mexican Grill, Inc.",
+  "CMI": "Cummins Inc.",
+  "CMS": "CMS Energy Corporation",
+  "CNC": "Centene Corporation",
+  "CNP": "CenterPoint Energy, Inc.",
+  "COF": "Capital One Financial Corporation",
+  "COO": "The Cooper Companies, Inc.",
+  "COP": "ConocoPhillips",
+  "COR": "Cencora, Inc.",
+  "COST": "Costco Wholesale Corporation",
+  "CPB": "Campbell Soup Company",
+  "CPRT": "Copart, Inc.",
+  "CPT": "Camden Property Trust",
+  "CRL": "Charles River Laboratories International, Inc.",
+  "CRM": "Salesforce, Inc.",
+  "CSCO": "Cisco Systems, Inc.",
+  "CSGP": "CoStar Group, Inc.",
+  "CSX": "CSX Corporation",
+  "CTAS": "Cintas Corporation",
+  "CTLT": "Catalent, Inc.",
+  "CTRA": "Coterra Energy Inc.",
+  "CTSH": "Cognizant Technology Solutions Corporation",
+  "CTVA": "Corteva, Inc.",
+  "CVS": "CVS Health Corporation",
+  "CVX": "Chevron Corporation",
+  "CZR": "Caesars Entertainment, Inc.",
+  "D": "Dominion Energy, Inc.",
+  "DAL": "Delta Air Lines, Inc.",
+  "DAY": "Dayforce Inc",
+  "DD": "DuPont de Nemours, Inc.",
+  "DE": "Deere & Company",
+  "DFS": "Discover Financial Services",
+  "DG": "Dollar General Corporation",
+  "DGX": "Quest Diagnostics Incorporated",
+  "DHI": "D.R. Horton, Inc.",
+  "DHR": "Danaher Corporation",
+  "DIS": "The Walt Disney Company",
+  "DLR": "Digital Realty Trust, Inc.",
+  "DLTR": "Dollar Tree, Inc.",
+  "DOC": "Healthpeak Properties, Inc.",
+  "DOV": "Dover Corporation",
+  "DOW": "Dow Inc.",
+  "DPZ": "Domino's Pizza, Inc.",
+  "DRI": "Darden Restaurants, Inc.",
+  "DTE": "DTE Energy Company",
+  "DUK": "Duke Energy Corporation",
+  "DVA": "DaVita Inc.",
+  "DVN": "Devon Energy Corporation",
+  "DXCM": "DexCom, Inc.",
+  "EA": "Electronic Arts Inc.",
+  "EBAY": "eBay Inc.",
+  "ECL": "Ecolab Inc.",
+  "ED": "Consolidated Edison, Inc.",
+  "EFX": "Equifax Inc.",
+  "EG": "Everest Group, Ltd.",
+  "EIX": "Edison International",
+  "EL": "The Est\u00e9e Lauder Companies Inc.",
+  "ELV": "Elevance Health, Inc.",
+  "EMN": "Eastman Chemical Company",
+  "EMR": "Emerson Electric Co.",
+  "ENPH": "Enphase Energy, Inc.",
+  "EOG": "EOG Resources, Inc.",
+  "EPAM": "EPAM Systems, Inc.",
+  "EQIX": "Equinix, Inc.",
+  "EQR": "Equity Residential",
+  "EQT": "EQT Corporation",
+  "ES": "Eversource Energy",
+  "ESS": "Essex Property Trust, Inc.",
+  "ETN": "Eaton Corporation plc",
+  "ETR": "Entergy Corporation",
+  "ETSY": "Etsy, Inc.",
+  "EVRG": "Evergy, Inc.",
+  "EW": "Edwards Lifesciences Corporation",
+  "EXC": "Exelon Corporation",
+  "EXPD": "Expeditors International of Washington, Inc.",
+  "EXPE": "Expedia Group, Inc.",
+  "EXR": "Extra Space Storage Inc.",
+  "F": "Ford Motor Company",
+  "FANG": "Diamondback Energy, Inc.",
+  "FAST": "Fastenal Company",
+  "FCX": "Freeport-McMoRan Inc.",
+  "FDS": "FactSet Research Systems Inc.",
+  "FDX": "FedEx Corporation",
+  "FE": "FirstEnergy Corp.",
+  "FFIV": "F5, Inc.",
+  "FI": "Fiserv, Inc.",
+  "FICO": "Fair Isaac Corporation",
+  "FIS": "Fidelity National Information Services, Inc.",
+  "FITB": "Fifth Third Bancorp",
+  "FLT": "FLEETCOR Technologies, Inc.",
+  "FMC": "FMC Corporation",
+  "FOX": "Fox Corporation",
+  "FOXA": "Fox Corporation",
+  "FRT": "Federal Realty Investment Trust",
+  "FSLR": "First Solar, Inc.",
+  "FTNT": "Fortinet, Inc.",
+  "FTV": "Fortive Corporation",
+  "GD": "General Dynamics Corporation",
+  "GE": "General Electric Company",
+  "GEHC": "GE HealthCare Technologies Inc.",
+  "GEN": "Gen Digital Inc.",
+  "GILD": "Gilead Sciences, Inc.",
+  "GIS": "General Mills, Inc.",
+  "GL": "Globe Life Inc.",
+  "GLW": "Corning Incorporated",
+  "GM": "General Motors Company",
+  "GNRC": "Generac Holdings Inc.",
+  "GOOG": "Alphabet Inc.",
+  "GOOGL": "Alphabet Inc.",
+  "GPC": "Genuine Parts Company",
+  "GPN": "Global Payments Inc.",
+  "GRMN": "Garmin Ltd.",
+  "GS": "The Goldman Sachs Group, Inc.",
+  "GWW": "W.W. Grainger, Inc.",
+  "HAL": "Halliburton Company",
+  "HAS": "Hasbro, Inc.",
+  "HBAN": "Huntington Bancshares Incorporated",
+  "HCA": "HCA Healthcare, Inc.",
+  "HD": "The Home Depot, Inc.",
+  "HES": "Hess Corporation",
+  "HIG": "The Hartford Financial Services Group, Inc.",
+  "HII": "Huntington Ingalls Industries, Inc.",
+  "HLT": "Hilton Worldwide Holdings Inc.",
+  "HOLX": "Hologic, Inc.",
+  "HON": "Honeywell International Inc.",
+  "HPE": "Hewlett Packard Enterprise Company",
+  "HPQ": "HP Inc.",
+  "HRL": "Hormel Foods Corporation",
+  "HSIC": "Henry Schein, Inc.",
+  "HST": "Host Hotels & Resorts, Inc.",
+  "HSY": "The Hershey Company",
+  "HUBB": "Hubbell Incorporated",
+  "HUM": "Humana Inc.",
+  "HWM": "Howmet Aerospace Inc.",
+  "IBM": "International Business Machines Corporation",
+  "ICE": "Intercontinental Exchange, Inc.",
+  "IDXX": "IDEXX Laboratories, Inc.",
+  "IEX": "IDEX Corporation",
+  "IFF": "International Flavors & Fragrances Inc.",
+  "ILMN": "Illumina, Inc.",
+  "INCY": "Incyte Corporation",
+  "INTC": "Intel Corporation",
+  "INTU": "Intuit Inc.",
+  "INVH": "Invitation Homes Inc.",
+  "IP": "International Paper Company",
+  "IPG": "The Interpublic Group of Companies, Inc.",
+  "IQV": "IQVIA Holdings Inc.",
+  "IR": "Ingersoll Rand Inc.",
+  "IRM": "Iron Mountain Incorporated",
+  "ISRG": "Intuitive Surgical, Inc.",
+  "IT": "Gartner, Inc.",
+  "ITW": "Illinois Tool Works Inc.",
+  "IVZ": "Invesco Ltd.",
+  "J": "Jacobs Solutions Inc.",
+  "JBHT": "J.B. Hunt Transport Services, Inc.",
+  "JBL": "Jabil Inc.",
+  "JCI": "Johnson Controls International plc",
+  "JKHY": "Jack Henry & Associates, Inc.",
+  "JNJ": "Johnson & Johnson",
+  "JNPR": "Juniper Networks, Inc.",
+  "JPM": "JPMorgan Chase & Co.",
+  "K": "Kellanova",
+  "KDP": "Keurig Dr Pepper Inc.",
+  "KEY": "KeyCorp",
+  "KEYS": "Keysight Technologies, Inc.",
+  "KHC": "The Kraft Heinz Company",
+  "KIM": "Kimco Realty Corporation",
+  "KLAC": "KLA Corporation",
+  "KMB": "Kimberly-Clark Corporation",
+  "KMI": "Kinder Morgan, Inc.",
+  "KMX": "CarMax, Inc.",
+  "KO": "The Coca-Cola Company",
+  "KR": "The Kroger Co.",
+  "KVUE": "Kenvue Inc.",
+  "L": "Loews Corporation",
+  "LDOS": "Leidos Holdings, Inc.",
+  "LEN": "Lennar Corporation",
+  "LH": "Laboratory Corporation of America Holdings",
+  "LHX": "L3Harris Technologies, Inc.",
+  "LIN": "Linde plc",
+  "LKQ": "LKQ Corporation",
+  "LLY": "Eli Lilly and Company",
+  "LMT": "Lockheed Martin Corporation",
+  "LNT": "Alliant Energy Corporation",
+  "LOW": "Lowe's Companies, Inc.",
+  "LRCX": "Lam Research Corporation",
+  "LULU": "Lululemon Athletica Inc.",
+  "LUV": "Southwest Airlines Co.",
+  "LVS": "Las Vegas Sands Corp.",
+  "LW": "Lamb Weston Holdings, Inc.",
+  "LYB": "LyondellBasell Industries N.V.",
+  "LYV": "Live Nation Entertainment, Inc.",
+  "MA": "Mastercard Incorporated",
+  "MAA": "Mid-America Apartment Communities, Inc.",
+  "MAR": "Marriott International, Inc.",
+  "MAS": "Masco Corporation",
+  "MCD": "McDonald's Corporation",
+  "MCHP": "Microchip Technology Incorporated",
+  "MCK": "McKesson Corporation",
+  "MCO": "Moody's Corporation",
+  "MDLZ": "Mondelez International, Inc.",
+  "MDT": "Medtronic plc",
+  "MET": "MetLife, Inc.",
+  "META": "Meta Platforms, Inc.",
+  "MGM": "MGM Resorts International",
+  "MHK": "Mohawk Industries, Inc.",
+  "MKC": "McCormick & Company, Incorporated",
+  "MKTX": "MarketAxess Holdings Inc.",
+  "MLM": "Martin Marietta Materials, Inc.",
+  "MMC": "Marsh & McLennan Companies, Inc.",
+  "MMM": "3M Company",
+  "MNST": "Monster Beverage Corporation",
+  "MO": "Altria Group, Inc.",
+  "MOH": "Molina Healthcare, Inc.",
+  "MOS": "The Mosaic Company",
+  "MPC": "Marathon Petroleum Corporation",
+  "MPWR": "Monolithic Power Systems, Inc.",
+  "MRK": "Merck & Co., Inc.",
+  "MRNA": "Moderna, Inc.",
+  "MRO": "Marathon Oil Corporation",
+  "MS": "Morgan Stanley",
+  "MSCI": "MSCI Inc.",
+  "MSFT": "Microsoft Corporation",
+  "MSI": "Motorola Solutions, Inc.",
+  "MTB": "M&T Bank Corporation",
+  "MTCH": "Match Group, Inc.",
+  "MTD": "Mettler-Toledo International Inc.",
+  "MU": "Micron Technology, Inc.",
+  "NCLH": "Norwegian Cruise Line Holdings Ltd.",
+  "NDAQ": "Nasdaq, Inc.",
+  "NDSN": "Nordson Corporation",
+  "NEE": "NextEra Energy, Inc.",
+  "NEM": "Newmont Corporation",
+  "NFLX": "Netflix, Inc.",
+  "NI": "NiSource Inc.",
+  "NKE": "NIKE, Inc.",
+  "NOC": "Northrop Grumman Corporation",
+  "NOW": "ServiceNow, Inc.",
+  "NRG": "NRG Energy, Inc.",
+  "NSC": "Norfolk Southern Corporation",
+  "NTAP": "NetApp, Inc.",
+  "NTRS": "Northern Trust Corporation",
+  "NUE": "Nucor Corporation",
+  "NVDA": "NVIDIA Corporation",
+  "NVR": "NVR, Inc.",
+  "NWS": "News Corporation",
+  "NWSA": "News Corporation",
+  "NXPI": "NXP Semiconductors N.V.",
+  "O": "Realty Income Corporation",
+  "ODFL": "Old Dominion Freight Line, Inc.",
+  "OKE": "ONEOK, Inc.",
+  "OMC": "Omnicom Group Inc.",
+  "ON": "ON Semiconductor Corporation",
+  "ORCL": "Oracle Corporation",
+  "ORLY": "O'Reilly Automotive, Inc.",
+  "OTIS": "Otis Worldwide Corporation",
+  "OXY": "Occidental Petroleum Corporation",
+  "PANW": "Palo Alto Networks, Inc.",
+  "PARA": "Paramount Global",
+  "PAYC": "Paycom Software, Inc.",
+  "PAYX": "Paychex, Inc.",
+  "PCAR": "PACCAR Inc",
+  "PCG": "PG&E Corporation",
+  "PEG": "Public Service Enterprise Group Incorporated",
+  "PEP": "PepsiCo, Inc.",
+  "PFE": "Pfizer Inc.",
+  "PFG": "Principal Financial Group, Inc.",
+  "PG": "The Procter & Gamble Company",
+  "PGR": "The Progressive Corporation",
+  "PH": "Parker-Hannifin Corporation",
+  "PHM": "PulteGroup, Inc.",
+  "PKG": "Packaging Corporation of America",
+  "PLD": "Prologis, Inc.",
+  "PM": "Philip Morris International Inc.",
+  "PNC": "The PNC Financial Services Group, Inc.",
+  "PNR": "Pentair plc",
+  "PNW": "Pinnacle West Capital Corporation",
+  "PODD": "Insulet Corporation",
+  "POOL": "Pool Corporation",
+  "PPG": "PPG Industries, Inc.",
+  "PPL": "PPL Corporation",
+  "PRU": "Prudential Financial, Inc.",
+  "PSA": "Public Storage",
+  "PSX": "Phillips 66",
+  "PTC": "PTC Inc.",
+  "PWR": "Quanta Services, Inc.",
+  "PXD": "Pioneer Natural Resources Company",
+  "PYPL": "PayPal Holdings, Inc.",
+  "QCOM": "QUALCOMM Incorporated",
+  "QRVO": "Qorvo, Inc.",
+  "RCL": "Royal Caribbean Cruises Ltd.",
+  "REG": "Regency Centers Corporation",
+  "REGN": "Regeneron Pharmaceuticals, Inc.",
+  "RF": "Regions Financial Corporation",
+  "RHI": "Robert Half Inc.",
+  "RJF": "Raymond James Financial, Inc.",
+  "RL": "Ralph Lauren Corporation",
+  "RMD": "ResMed Inc.",
+  "ROK": "Rockwell Automation, Inc.",
+  "ROL": "Rollins, Inc.",
+  "ROP": "Roper Technologies, Inc.",
+  "ROST": "Ross Stores, Inc.",
+  "RSG": "Republic Services, Inc.",
+  "RTX": "RTX Corporation",
+  "RVTY": "Revvity, Inc.",
+  "SBAC": "SBA Communications Corporation",
+  "SBUX": "Starbucks Corporation",
+  "SCHW": "The Charles Schwab Corporation",
+  "SHW": "The Sherwin-Williams Company",
+  "SJM": "The J. M. Smucker Company",
+  "SLB": "Schlumberger Limited",
+  "SNA": "Snap-on Incorporated",
+  "SNPS": "Synopsys, Inc.",
+  "SO": "The Southern Company",
+  "SPG": "Simon Property Group, Inc.",
+  "SPGI": "S&P Global Inc.",
+  "SRE": "Sempra",
+  "STE": "STERIS plc",
+  "STLD": "Steel Dynamics, Inc.",
+  "STT": "State Street Corporation",
+  "STX": "Seagate Technology Holdings plc",
+  "STZ": "Constellation Brands, Inc.",
+  "SWK": "Stanley Black & Decker, Inc.",
+  "SWKS": "Skyworks Solutions, Inc.",
+  "SYF": "Synchrony Financial",
+  "SYK": "Stryker Corporation",
+  "SYY": "Sysco Corporation",
+  "T": "AT&T Inc.",
+  "TAP": "Molson Coors Beverage Company",
+  "TDG": "TransDigm Group Incorporated",
+  "TDY": "Teledyne Technologies Incorporated",
+  "TECH": "Bio-Techne Corporation",
+  "TEL": "TE Connectivity Ltd.",
+  "TER": "Teradyne, Inc.",
+  "TFC": "Truist Financial Corporation",
+  "TFX": "Teleflex Incorporated",
+  "TGT": "Target Corporation",
+  "TJX": "The TJX Companies, Inc.",
+  "TMO": "Thermo Fisher Scientific Inc.",
+  "TMUS": "T-Mobile US, Inc.",
+  "TPR": "Tapestry, Inc.",
+  "TRGP": "Targa Resources Corp.",
+  "TRMB": "Trimble Inc.",
+  "TROW": "T. Rowe Price Group, Inc.",
+  "TRV": "The Travelers Companies, Inc.",
+  "TSCO": "Tractor Supply Company",
+  "TSLA": "Tesla, Inc.",
+  "TSN": "Tyson Foods, Inc.",
+  "TT": "Trane Technologies plc",
+  "TTWO": "Take-Two Interactive Software, Inc.",
+  "TXN": "Texas Instruments Incorporated",
+  "TXT": "Textron Inc.",
+  "TYL": "Tyler Technologies, Inc.",
+  "UAL": "United Airlines Holdings, Inc.",
+  "UBER": "Uber Technologies, Inc.",
+  "UDR": "UDR, Inc.",
+  "UHS": "Universal Health Services, Inc.",
+  "ULTA": "Ulta Beauty, Inc.",
+  "UNH": "UnitedHealth Group Incorporated",
+  "UNP": "Union Pacific Corporation",
+  "UPS": "United Parcel Service, Inc.",
+  "URI": "United Rentals, Inc.",
+  "USB": "U.S. Bancorp",
+  "V": "Visa Inc.",
+  "VFC": "V.F. Corporation",
+  "VICI": "VICI Properties Inc.",
+  "VLO": "Valero Energy Corporation",
+  "VLTO": "Veralto Corporation",
+  "VMC": "Vulcan Materials Company",
+  "VRSK": "Verisk Analytics, Inc.",
+  "VRSN": "VeriSign, Inc.",
+  "VRTX": "Vertex Pharmaceuticals Incorporated",
+  "VTR": "Ventas, Inc.",
+  "VTRS": "Viatris Inc.",
+  "VZ": "Verizon Communications Inc.",
+  "WAB": "Westinghouse Air Brake Technologies Corporation",
+  "WAT": "Waters Corporation",
+  "WBA": "Walgreens Boots Alliance, Inc.",
+  "WBD": "Warner Bros. Discovery, Inc.",
+  "WDC": "Western Digital Corporation",
+  "WEC": "WEC Energy Group, Inc.",
+  "WELL": "Welltower Inc.",
+  "WFC": "Wells Fargo & Company",
+  "WHR": "Whirlpool Corporation",
+  "WM": "Waste Management, Inc.",
+  "WMB": "The Williams Companies, Inc.",
+  "WMT": "Walmart Inc.",
+  "WRB": "W. R. Berkley Corporation",
+  "WRK": "WestRock Company",
+  "WST": "West Pharmaceutical Services, Inc.",
+  "WTW": "Willis Towers Watson Public Limited Company",
+  "WY": "Weyerhaeuser Company",
+  "WYNN": "Wynn Resorts, Limited",
+  "XEL": "Xcel Energy Inc.",
+  "XOM": "Exxon Mobil Corporation",
+  "XRAY": "DENTSPLY SIRONA Inc.",
+  "XYL": "Xylem Inc.",
+  "YUM": "Yum! Brands, Inc.",
+  "ZBH": "Zimmer Biomet Holdings, Inc.",
+  "ZBRA": "Zebra Technologies Corporation",
+  "ZION": "Zions Bancorporation, National Association",
+  "ZTS": "Zoetis Inc."
+}
