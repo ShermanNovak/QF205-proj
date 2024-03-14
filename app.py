@@ -41,11 +41,13 @@ def optimise_portfolio():
 
     #Calculate covariance matrix, and annualising daily data by multiplying by 252 trading days
     cov_matrix = log_returns.cov()*252
+    print(log_returns)
 
     # Getting risk-free return based on 10-year Treasury bills
-    fred = Fred(api_key=FRED_KEY)
-    ten_year_treasury_rate = fred.get_series_latest_release('GS10')/100
-    risk_free_rate = ten_year_treasury_rate.iloc[-1]
+    # fred = Fred(api_key=FRED_KEY)
+    # ten_year_treasury_rate = fred.get_series_latest_release('GS10')/100
+    # risk_free_rate = ten_year_treasury_rate.iloc[-1]
+    risk_free_rate = 0.0413
 
     #Priming the parameters for calculation
     constraints = {'type': 'eq', 'fun': lambda weights: np.sum(weights)-1}
