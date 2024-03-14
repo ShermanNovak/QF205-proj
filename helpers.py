@@ -19,20 +19,8 @@ def last_month_return():
 def rolling_3month_return():
     return
 
-def ytd_return():
-    return
-
-def annualised_return():
-    return
-
-def annualised_volatility():
-    return
-
 def realised_sharpe():
     return
 
-def total_return():
-    return
-
-def worst_monthly_dd():
+def max_dd():
     return
