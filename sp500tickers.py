@@ -1,4 +1,4 @@
-{
+tickers_dict = {
   "A": "Agilent Technologies, Inc.",
   "AAL": "American Airlines Group Inc.",
   "AAPL": "Apple Inc.",
