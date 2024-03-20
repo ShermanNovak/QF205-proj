@@ -11,8 +11,8 @@ class Optimiser:
 
         self.optimal_weights = self.__portfolio()
         self.volatility = self.__volatility(self.optimal_weights,self.cov_matrix)
-        self.expected_returns = self.__expected_returns(self.optimal_weights, self.__logreturns)
-        self.sharpe = self.__sharpe_ratio(self.optimal_weights,self.__logreturns, self.cov_matrix, self.risk_free_rate)
+        self.expected_returns = self.__expected_returns(self.optimal_weights, self.logreturns)
+        self.sharpe = self.__sharpe_ratio(self.optimal_weights,self.logreturns, self.cov_matrix, self.risk_free_rate)
 
     #Creating a property-based attribute for stocks, has to contain more than 2 stocks
     @property
@@ -25,6 +25,7 @@ class Optimiser:
             raise ValueError("Tickers list has to have at least 2 stocks")
         self._tickers = value
 
+    #Helper functions
     def __portfolio(self):
         df = pd.read_csv("sp500_stocks_2019onwards.csv")
 
@@ -44,7 +45,7 @@ class Optimiser:
         # Calculate compounding returns 
         log_returns = np.log(df/df.shift(1))
         log_returns = log_returns.dropna()
-        self.__logreturns = log_returns
+        self.logreturns = log_returns
 
         #Calculate covariance matrix, and annualising daily data by multiplying by 252 trading days
         self.cov_matrix = log_returns.cov()*252
@@ -79,4 +80,6 @@ class Optimiser:
     def __neg_sharpe_ratio(self, weights, log_returns, cov_matrix, risk_free_rate):
         return -self.__sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate)
 
-        
+tickers = ["AAPL","GOOG", "AMZN", "AMD","AIG","EL"]
+optimised = Optimiser(True,tickers)
+print((optimised.logreturns.mean()*optimised.optimal_weights)*252)
